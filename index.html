@@ -48,7 +48,7 @@
         /* 모서리 회전 버튼 영역 (투명) */
         .corner-btn {
             position: absolute;
-            width: 60px; /* 터치 영역을 조금 더 확장했습니다 */
+            width: 60px;
             height: 60px;
             background-color: transparent; 
             border-radius: 50%;
@@ -88,13 +88,13 @@
         </div>
     </div>
 
-    <div id="info-ui">← 왼쪽 모서리: 반시계 회전 / 오른쪽 모서리: 시계 회전 →</div>
+    <div id="info-ui">모서리를 누르면 회전합니다</div>
 
     <script>
         let rotation = 0;
         const wrapper = document.getElementById('paper-wrapper');
 
-        // 회전 함수 (angle 매개변수를 받아 유연하게 회전)
+        // 회전 함수
         function rotatePaper(angle) {
             rotation += angle;
             wrapper.style.transform = `rotate(${rotation}deg)`;
