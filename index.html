@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A4 종이 양방향 회전 시뮬레이터</title>
+    <style>
+        /* 검은 배경 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        /* 메인 컨테이너 (회전을 담당) */
+        #paper-wrapper {
+            position: relative;
+            width: 300px;
+            height: 424.2px; /* A4 비율 */
+            transition: transform 0.4s ease;
+            transform-origin: center center;
+        }
+
+        /* 종이 본체 */
+        #paper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* 이미지 */
+        #paper-img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            pointer-events: none;
+        }
+
+        /* 모서리 회전 버튼 영역 (투명) */
+        .corner-btn {
+            position: absolute;
+            width: 60px; /* 터치 영역을 조금 더 확장했습니다 */
+            height: 60px;
+            background-color: transparent; 
+            border-radius: 50%;
+            z-index: 10;
+            cursor: pointer;
+        }
+        
+        /* 모서리 배치 */
+        .top-left { top: -30px; left: -30px; }
+        .top-right { top: -30px; right: -30px; }
+        .bottom-left { bottom: -30px; left: -30px; }
+        .bottom-right { bottom: -30px; right: -30px; }
+
+        /* 상태 안내 UI */
+        #info-ui {
+            position: absolute;
+            bottom: 20px;
+            color: #fff;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 20px;
+            border-radius: 20px;
+            pointer-events: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="paper-wrapper">
+        <div class="corner-btn top-left" onclick="rotatePaper(-90)"></div>
+        <div class="corner-btn top-right" onclick="rotatePaper(90)"></div>
+        <div class="corner-btn bottom-left" onclick="rotatePaper(-90)"></div>
+        <div class="corner-btn bottom-right" onclick="rotatePaper(90)"></div>
+
+        <div id="paper">
+            <img id="paper-img" src="cover.png" alt="종이 이미지">
+        </div>
+    </div>
+
+    <div id="info-ui">← 왼쪽 모서리: 반시계 회전 / 오른쪽 모서리: 시계 회전 →</div>
+
+    <script>
+        let rotation = 0;
+        const wrapper = document.getElementById('paper-wrapper');
+
+        // 회전 함수 (angle 매개변수를 받아 유연하게 회전)
+        function rotatePaper(angle) {
+            rotation += angle;
+            wrapper.style.transform = `rotate(${rotation}deg)`;
+        }
+    </script>
+</body>
+</html>
